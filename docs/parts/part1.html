@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Bind a .JAR</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>Building a Java Bindings Library</header>
+
+    <section id="main">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h1 id="page-title"></h1>
+        
+        <h2>Duration</h2>
+        <p>
+        	15 minutes
+        </p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Goals</h2>
+
+		<p>
+			This exercise has two parts: first create a Bindings Library and second create an Android app that uses the Bindings Library.
+		</p>
+
+		<p>
+			For the first part, you will be given a .JAR file containing the Java code shown below. Your job is to create a
+			Bindings Library with Managed Callable Wrappers around the Java code.
+		</p>
+
+<pre class="prettyprint codeblock">
+package com.xamarin;
+
+public class Pi
+{
+  public static double calculate(int iterations)
+  {
+    double quarterPi = 0;
+
+    for (int i = 0; i &lt; iterations; i++)
+    {
+      double term = 1.0 / (2 * i + 1);
+
+      int sign = i % 2 == 0 ? 1 : -1;
+
+      quarterPi += sign * term;
+    }
+
+    return quarterPi * 4;
+  }
+}</pre>   
+
+		<p>
+       		Once you have the Bindings Library, you will create an Android app to use it. You will invoke the Managed Callable Wrapper for the
+       		<code>calculate</code> method from your main Activity.
+		</p>
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Required assets</h2>
+        <p>
+            The provided <strong>Resources</strong> folder for this part contains the .JAR file (<strong>pi.jar</strong>)
+            file you will use in your Bindings Library. There is also a folder containing the Java source used to build the
+            .JAR file. You will not need this source to do the exercise; it is supplied for reference if you would
+            like to examine the code or see how the .JAR was created.
+        </p>
+
+        <p>
+            There is also a subfolder named <strong>Completed</strong> with solutions for each of the two parts of this
+            exercise. You can use these to check your work if you would like to.
+        </p>
+
+        <p>
+             Please make sure you have this <strong>Resources</strong> folder before you begin.
+        </p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Challenge</h2>
+
+        <p>
+            Your goal is to create a Bindings Library and then use it in an Android app. The high-level procedure is shown here.
+            You can use this information to guide your implementation or use the step-by-step procedure given below.
+        </p>
+
+        <ol>
+            <li>Create a new Bindings Library project.</li>
+            <li>Create bindings for the provided <strong>pi.jar</strong> file.</li>
+            <li>Create a new Android Application project.</li>
+            <li>Use the Bindings Library to call the <code>Calculate</code> method.</li>
+            <li>Display the results in any way you would like to; you can show it in the UI or write the value to the console.</li>
+        </ol>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h1>Steps</h1>
+        <p>
+            Below are the step-by-step instructions to implement the exercise.
+        </p>
+
+        <h2>
+        	Create a Bindings Library
+        </h2>
+
+        <ol>
+         	<li>
+        		Create a new <strong>Android Java Bindings Library</strong> project. Name it <strong>Pi</strong>.
+        	</li>
+
+        	<li>
+        		Add the provided <strong>pi.jar</strong> file to the <strong>Jars</strong> folder.
+        	</li>
+
+        	<li>
+        		Verify that the Build Action of <strong>pi.jar</strong> is <strong>EmbeddedJar</strong>.
+        		If it is not, set it to <strong>EmbeddedJar</strong>.
+        	</li>
+
+        	<li>
+        		In the project properties, choose a <strong>Target framework</strong> version.
+        		Select a version that is less-than or equal-to the version you will use in the app that consumes this library.
+        	</li>
+
+        	<li>
+        		Build the project. This will generate an assembly named <strong>Pi.dll</strong>.
+        	</li>
+		</ol>
+
+        <h2>
+        	Create an Android app that uses the Bindings Library
+        </h2>
+
+        <ol>
+        	<li>
+        		Create a new <strong>Android App</strong> project.
+        	</li>
+
+        	<li>
+        		Add a reference to the <strong>Pi.dll</strong> assembly you created in the previous part.
+        	</li>
+
+        	<li>
+        		Open <strong>MainActivity.cs</strong>.
+        	</li>
+
+        	<li>
+        		In the <code>OnCreate</code> method, call the <code>Pi.Calculate</code> method from the Bindings Library.
+        		Pass in the number of iterations you would like it to use to calculate an approximation of Pi. The algorithm
+        		converges slowly so you will need to pass a large value such as 10,000 to get an accurate result.
+        	</li>
+<a href="#" onclick="toggleCode(this,'callBinding');return false;" class="uiitem">Show Code</a>
+<div class="indent-medium" id="callBinding" style="display:none;">
+<pre class="prettyprint">
+double result = Com.Xamarin.Pi.Calculate(10000);
+</pre></div>
+
+            <li>
+            	Display the results in any way you would like to; you can show it in the UI or write the value to the console.
+            </li>
+
+			<li>
+				Run the app to test your work.
+			</li>
+        </ol>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h1>Summary</h1>
+        <p>
+        	This exercise showed you the entire process of creating and using a Bindings Library.
+        	Using a Bindings Library is very convenient for the client: their C# code stays clean and 
+        	simple even though it is interop code calling through to Java.
+        </p>
+
+        <div class="align-right">
+            <a href="../Start%20Here.html">Go Back</a>
+        </div>
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft.</footer>
+</body>
+</html>

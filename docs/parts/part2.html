@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Bind an .AAR</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>Building a Java Bindings Library</header>
+
+    <section id="main">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h1 id="page-title"></h1>
+        
+        <h2>Duration</h2>
+        <p>
+        	15 minutes
+        </p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Goals</h2>
+
+		<p>
+			This exercise has two parts: first create a Bindings Library and second create an Android app that uses the Bindings Library.
+		</p>
+
+		<p>
+			For the first part, you will be given an .AAR file containing Java code, a string resource, and an image resource.
+			The image below shows the Android Studio source for the .AAR. Notice the three parts highlighted in blue: a method
+			named <code>getPhoneNumber</code>, an image named <strong>logo.png</strong>, and a string resource named
+			<code>company_name</code>. Your job is to create a Bindings Library containing Managed Callable Wrappers around the .AAR file.
+			The Xamarin tooling will generate a C# class to wrap the Java class and preserve the resource image and resource string.
+		</p>
+
+		<img src="./res/images/AarSource.png" />
+
+		<p>
+       		Once you have the Bindings Library, you will create an Android app to use it. You will invoke the Managed Callable Wrapper for the
+       		<code>getPhoneNumber</code> method and write XML to access the resource string and resource image. Recall that the information
+       		from the <code>R</code> class in the .AAR file gets merged into the <code>Resource</code> class inside your app.
+       		This lets you access the .AAR resources as if they were defined directly in your app.
+		</p>
+
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Required assets</h2>
+        <p>
+            The provided <strong>Resources</strong> folder for this part contains the .AAR file (<strong>mycompany.aar</strong>)
+            you will use in your Bindings Library. There is also a folder containing the Java source used to build the
+            .AAR file. You will not need this source to do the exercise; it is supplied for reference if you would
+            like to examine the code or see how the .AAR was created.
+        </p>
+
+        <p>
+            There is also a subfolder named <strong>Completed</strong> with solutions for each of the two parts of this
+            exercise. You can use these to check your work if you would like to.
+        </p>
+
+        <p>
+             Please make sure you have this <strong>Resources</strong> folder before you begin.
+        </p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Challenge</h2>
+
+        <p>
+            Your goal is to create a Bindings Library and then use it in an Android app. The high-level procedure is shown here.
+            You can use this information to guide your implementation or use the step-by-step procedure given below.
+        </p>
+
+        <ol>
+            <li>Create a new Bindings Library project.</li>
+            <li>Create bindings for the provided <strong>mycompany.aar</strong> file.</li>
+            <li>Create a new Android Application project.</li>
+            <li>Create an <code>ImageView</code> in your UI and set its <code>src</code> to the <strong>logo</strong> resource file. Set the <code>src</code> in the layout XML, not from code.</li>
+            <li>Create a <code>TextView</code> in your UI and set its <code>text</code> to the <code>company_name</code> resource string. Set the <code>text</code> in the layout XML, not from code.</li>
+            <li>Access the <code>PhoneNumber</code> property in the Managed Callable Wrapper for the <code>Info</code> class. Display the returned value in a <code>TextView</code> in your UI.</li>
+        </ol>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h1>Steps</h1>
+        <p>
+            Below are the step-by-step instructions to implement the exercise.
+        </p>
+
+        <h2>
+        	Create a Bindings Library
+        </h2>
+
+        <ol>
+        	<li>
+        		Create a new <strong>Android Java Bindings Library</strong> project. Name it <strong>MyCompany</strong>.
+        	</li>
+
+        	<li>
+        		Add the provided <strong>mycompany.aar</strong> file to the <strong>Jars</strong> folder.
+        	</li>
+
+        	<li>
+        		Verify that the Build Action of <strong>mycompany.aar</strong> is <strong>LibraryProjectZip</strong>.
+        		If it is not, set it to <strong>LibraryProjectZip</strong>.
+        	</li>
+
+        	<li>
+        		In the project properties, choose a <strong>Target framework</strong> version.
+        		Select a version that is less-than or equal-to the version you will use in the app that consumes this library.
+        	</li>
+
+        	<li>
+        		Build the project. This will generate an assembly named <strong>MyCompany.dll</strong>.
+        	</li>
+		</ol>
+
+        <h2>
+        	Create an Android app that uses the Bindings Library
+        </h2>
+
+        <ol>
+        	<li>
+        		Create a new <strong>Android App</strong> project.
+        	</li>
+
+        	<li>
+        		Add a reference to the <strong>MyCompany.dll</strong> assembly you created in the previous part.
+        	</li>
+
+        	<li>
+        		Open <strong>Main.axml</strong> in the Source view.
+        	</li>
+
+        	<li>
+        		Remove the <code>Button</code> that was included in the starter template.
+        	</li>
+
+        	<li>
+        		Add an <code>ImageView</code>. Set it's <code>layout_width</code> and <code>layout_height</code> to <code>100dp</code>.
+        		Set its <code>src</code> to the <strong>logo</strong> resource file. The XML is given below if you need it, hidden behind a button.
+        	</li>
+
+<a href="#" onclick="toggleCode(this,'image');return false;" class="uiitem">Show Code</a>
+<div class="indent-medium" id="image" style="display:none;">
+<pre class="prettyprint">
+&lt;ImageView
+  android:src="@drawable/logo"
+  android:layout_width="100dp"
+  android:layout_height="100dp" /&gt;
+</pre></div>
+
+        	<li>
+        		Add a <code>TextView</code>. Set it's <code>layout_width</code> to <code>match_parent</code> and <code>layout_height</code> to <code>wrap_content</code>.
+        		Set its <code>text</code> to the <code>company_name</code> resource string. The XML is given below if you need it, hidden behind a button.
+        	</li>
+
+<a href="#" onclick="toggleCode(this,'name');return false;" class="uiitem">Show Code</a>
+<div class="indent-medium" id="name" style="display:none;">
+<pre class="prettyprint">
+&lt;TextView
+  android:text="@string/company_name"
+  android:layout_width="match_parent" 
+  android:layout_height="wrap_content" /&gt;
+</pre></div>
+
+
+        	<li>
+        		Add a <code>TextView</code>. Set it's <code>layout_width</code> to <code>match_parent</code> and <code>layout_height</code> to <code>wrap_content</code>.
+        		Give it an <code>id</code> of <code>phoneNumber</code> so you can access it from code. The XML is given below if you need it, hidden behind a button.
+        	</li>
+
+<a href="#" onclick="toggleCode(this,'phone');return false;" class="uiitem">Show Code</a>
+<div class="indent-medium" id="phone" style="display:none;">
+<pre class="prettyprint">
+&lt;TextView
+  android:id="@+id/phoneNumber"
+  android:layout_width="match_parent" 
+  android:layout_height="wrap_content" /&gt;
+</pre></div>
+
+        	<li>
+        		Open <strong>MainActivity.cs</strong>.
+        	</li>
+
+        	<li>
+        		Remove the code that manipulates the <code>Button</code>. This was added by the starter template but you will not need it.
+        	</li>
+
+        	<li>
+        		In the <code>OnCreate</code> method, access the <code>Info.PhoneNumber</code> property from the Bindings Library.
+        		Load the returned string into the <code>Text</code> property of the <code>phoneNumber TextView</code>.
+        	</li>
+<a href="#" onclick="toggleCode(this,'code');return false;" class="uiitem">Show Code</a>
+<div class="indent-medium" id="code" style="display:none;">
+<pre class="prettyprint">
+string pn = Com.Xamarin.Info.PhoneNumber;
+FindViewById&lt;TextView&gt;(Resource.Id.phoneNumber).Text = pn;
+</pre></div>
+
+			<li>
+				Run the app to test your work.
+			</li>
+        </ol>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h1>Summary</h1>
+        <p>
+        	This exercise showed you the entire process of creating and using a Bindings Library for an .AAR file.
+        	Binding an .AAR is convenient because it gives you easy access to both the code and resources in the
+        	original .AAR file.
+        </p>
+
+        <div class="align-right">
+            <a href="../Start%20Here.html">Go Back</a>
+        </div>
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft.</footer>
+</body>
+</html>
