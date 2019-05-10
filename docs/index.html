@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Building a Java Bindings Library</title>
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/prettify.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/styles.css">
+</head>
+
+<body>
+    <!-- This will be filled in at runtime -->
+    <header role="course-title"></header>
+
+    <section id="main">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Before you begin</h2>
+        <p>
+        	This is an Android class. To complete the coding exercises, you will need an Android development environment
+        	with either an emulator or a device to run the exercise on. 
+        	Please see the <a href="https://university.xamarin.com/resources/setup-and-troubleshooting">setup page</a> 
+        	if you need help installing the Xamarin development environment.
+        </p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Overview</h2>
+        <p>
+        	A Bindings Library is an assembly containing Managed Callable Wrappers for Java types. 
+        	This course shows how to use the Xamarin tools to create Bindings Libraries for both .JAR and .AAR files.
+        	 
+        	Note that this class covers the core concepts; it does not describe how to customize the generated bindings.
+        </p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Objectives</h2>
+        <ol>
+			<li>Determine which Java libraries can be bound</li>
+			<li>Bind a .JAR</li>
+			<li>Bind an .AAR</li>
+			<li>Handle a private-use reference .JAR</li>
+			<li>Handle a public-use reference .JAR</li>
+			<li>Examine how Java-language constructs are mapped to C#</li>
+        </ol>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Lecture</h2>
+        <p><a href="./parts/slides.pdf">AND450 - Building a Java Bindings Library</a>.</p>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Exercises</h2>
+        <p>
+            Exercise materials are available from <a href="https://github.com/XamarinUniversity/AND450/">GitHub</a>. The code can be cloned through a desktop Git client or <a href="https://github.com/XamarinUniversity/AND450/archive/master.zip">downloaded directly</a> as a ZIP file.
+        </p>
+        <ol>
+            <li><div class="objective">Bind a .JAR</div>
+            <a href="./parts/part1.html">Exercise</a>
+            <br />
+	            In this exercise, you will create a Bindings Library for a .JAR file and use the Managed Callable Wrappers in an Android app.
+            </li>
+
+            <li><div class="objective">Bind an .AAR</div>
+            <a href="./parts/part2.html">Exercise</a>
+            <br />
+            	Here, you will create a Bindings Library for an .AAR file and use the types and resources from the .AAR file in an Android app.
+            </li>
+
+            <li><div class="objective">Examine mappings for various Java constructs</div>
+            <a href="./parts/part3.html">Exercise</a>
+            <br />
+            	This exercise shows what C# is generated for various Java-language constructs.
+            </li>
+
+            </ol>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <h2>Additional resources</h2>
+
+        <div class="wslist">
+            <a target="_blank" href="http://developer.xamarin.com/guides/android/advanced_topics/java_integration_overview/">Java Integration Overview</a>        
+            <a target="_blank" href="http://developer.xamarin.com/guides/android/advanced_topics/java_integration_overview/binding_a_java_library_(.jar)/">Binding a Java Library</a>
+        </div>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    </section>
+
+    <script src="./parts/res/js/jquery.min.js"></script>
+    <script src="./parts/res/js/prettify.js"></script>
+    <script src="./parts/res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+</body>
+</html>
+
